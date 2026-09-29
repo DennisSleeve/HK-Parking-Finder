@@ -1,0 +1,59 @@
+name: Build Android AAB
+
+on:
+  workflow_dispatch: {}
+  push:
+    paths:
+      - "android-project.zip"
+      - ".github/workflows/build-android.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Unzip Android project
+        run: |
+          rm -rf android
+          mkdir -p android
+          unzip -q android-project.zip -d android
+
+      - name: Restore signing keystore
+        working-directory: android
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > signing.keystore
+          cat > keystore.properties << EOF
+          storeFile=signing.keystore
+          storePassword=${{ secrets.KEYSTORE_PASSWORD }}
+          keyAlias=${{ secrets.KEY_ALIAS }}
+          keyPassword=${{ secrets.KEY_PASSWORD }}
+          EOF
+
+      - name: Grant execute permission to gradlew
+        working-directory: android
+        run: chmod +x gradlew
+
+      - name: Build signed release AAB
+        working-directory: android
+        run: ./gradlew bundleRelease --no-daemon
+
+      - name: Build signed release APK (for local testing)
+        working-directory: android
+        run: ./gradlew assembleRelease --no-daemon
+
+      - name: Upload AAB artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hk-parking-finder-webview-release
+          path: |
+            android/app/build/outputs/bundle/release/*.aab
+            android/app/build/outputs/apk/release/*.apk
+          retention-days: 14
