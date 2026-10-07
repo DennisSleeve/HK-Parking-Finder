@@ -330,15 +330,15 @@
   .tour-btn.tour-next { background: var(--blue); color: #fff; }
   .tour-nav { display: flex; gap: 8px; }
 </style>
-</head>
 <body>
+
 <header class="topbar">
   <div class="brand-row">
     <div class="brand">
       <div class="brand-badge">P</div>
       <div class="brand-text">
         <h1>HK Smart Parking Finder</h1>
-        <div class="sub">Live vacancy from data.gov.hk</div>
+        <div class="sub" id="appTagline">Live vacancy from data.gov.hk</div>
       </div>
     </div>
     <div class="status-pill" id="statusPill">
@@ -361,9 +361,10 @@
   </div>
 
   <div class="more-menu" id="moreMenu">
-    <button class="more-menu-item" id="menuTourBtn" type="button"><span class="mi-icon">🧭</span> Take the tour</button>
-    <button class="more-menu-item" id="menuHelpBtn" type="button"><span class="mi-icon">❓</span> Help &amp; FAQ</button>
-    <button class="more-menu-item" id="menuRateBtn" type="button"><span class="mi-icon">★</span> Rate this app</button>
+    <button class="more-menu-item" id="menuLangBtn" type="button"><span class="mi-icon">🌐</span> <span id="menuLangLabel">中文</span></button>
+    <button class="more-menu-item" id="menuTourBtn" type="button"><span class="mi-icon">🧭</span> <span id="menuTourLabel">Take the tour</span></button>
+    <button class="more-menu-item" id="menuHelpBtn" type="button"><span class="mi-icon">❓</span> <span id="menuHelpLabel">Help &amp; FAQ</span></button>
+    <button class="more-menu-item" id="menuRateBtn" type="button"><span class="mi-icon">★</span> <span id="menuRateLabel">Rate this app</span></button>
   </div>
 
   <div class="vtabs" id="vtabs">
@@ -390,41 +391,42 @@
   <div id="content">
     <div class="loading-state">
       <div class="spinner-big"></div>
-      Fetching live car park data from the Transport Department…
+      <span id="initialLoadingMsg">Fetching live car park data from the Transport Department…</span>
     </div>
   </div>
 </main>
 
 <footer>
   <div class="install-card">
-    <div class="install-title">📲 Add this to your Home Screen</div>
+    <div class="install-title" id="installTitleText">📲 Add this to your Home Screen</div>
     <div class="install-grid">
       <div class="install-col">
-        <div class="install-plat">iPhone / iPad (Safari)</div>
+        <div class="install-plat" id="installIosPlatText">iPhone / iPad (Safari)</div>
         <ol>
-          <li>Tap the <b>Share</b> icon (square with an arrow, in the toolbar)</li>
-          <li>Scroll down and tap <b>Add to Home Screen</b></li>
-          <li>Tap <b>Add</b> — top right</li>
+          <li id="installIos1">Tap the <b>Share</b> icon (square with an arrow, in the toolbar)</li>
+          <li id="installIos2">Scroll down and tap <b>Add to Home Screen</b></li>
+          <li id="installIos3">Tap <b>Add</b> — top right</li>
         </ol>
       </div>
       <div class="install-col">
-        <div class="install-plat">Android (Chrome)</div>
+        <div class="install-plat" id="installAndroidPlatText">Android (Chrome)</div>
         <ol>
-          <li>Tap the <b>⋮</b> menu — top right</li>
-          <li>Tap <b>Add to Home screen</b> (or <b>Install app</b>)</li>
-          <li>Tap <b>Add</b> / <b>Install</b> to confirm</li>
+          <li id="installAndroid1">Tap the <b>⋮</b> menu — top right</li>
+          <li id="installAndroid2">Tap <b>Add to Home screen</b> (or <b>Install app</b>)</li>
+          <li id="installAndroid3">Tap <b>Add</b> / <b>Install</b> to confirm</li>
         </ol>
       </div>
     </div>
-    <div class="install-note">After that, open it from its own icon — full-screen, no browser address bar — and it'll still pull live vacancy data fresh every time, exactly like it does now.</div>
+    <div class="install-note" id="installNoteText">After that, open it from its own icon — full-screen, no browser address bar — and it'll still pull live vacancy data fresh every time, exactly like it does now.</div>
   </div>
 
   <details class="about">
-    <summary>About this tool &amp; data sources</summary>
+    <summary id="aboutSummaryText">About this tool &amp; data sources</summary>
     <div class="about-body">
-      <p>This finder calls two official Hong Kong government feeds directly from your browser, refreshed automatically every 60 seconds — nothing passes through any server of mine. For <b>Private car</b> and <b>Motorcycle</b>, it combines the Transport Department's <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">territory-wide vacancy feed</a> (all 18 districts) with the <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">Parking Vacancy Data (One-Stop Version)</a> API. For <b>LGV/HGV</b>, only the one-stop API has a vehicle type actually stated, so those two views are limited to the car parks it covers — which, in practice, means Kwun Tong, Kowloon Bay, San Po Kong and Kai Tak (the Energizing Kowloon East smart-parking zone). That gap is itself a data point: official real-time reporting for goods vehicles barely exists outside one pilot district, even though HK logged 2M+ illegal-parking tickets last year and the shortage is most acute for goods vehicles — which is exactly the underserved segment the original NYC analysis pointed toward.</p>
-      <p>Vacancy figures come from car park operators and are not available for every venue — where an operator reports a status only (not an exact count), or reports nothing at all, this is shown as "Status only" or "No live data" rather than a number. Distances are straight-line, calculated from the location your browser reports.</p>
-      <p>Built as a follow-on to an MBA data analytics project on NYC curb-parking enforcement — testing whether the same "smart parking" idea holds up in a market that, unlike NYC, already has strong public real-time parking data. Short answer: general car-park search is well served here already; the sharper open gap is commercial/goods-vehicle loading, which is why LGV/HGV views are included above.</p>
+      <p id="aboutP1">This finder calls two official Hong Kong government feeds directly from your browser, refreshed automatically every 60 seconds — nothing passes through any server of mine. For <b>Private car</b> and <b>Motorcycle</b>, it combines the Transport Department's <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">territory-wide vacancy feed</a> (all 18 districts) with the <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">Parking Vacancy Data (One-Stop Version)</a> API. For <b>LGV/HGV</b>, only the one-stop API has a vehicle type actually stated, so those two views are limited to the car parks it covers — which, in practice, means Kwun Tong, Kowloon Bay, San Po Kong and Kai Tak (the Energizing Kowloon East smart-parking zone). That gap is itself a data point: official real-time reporting for goods vehicles barely exists outside one pilot district, even though HK logged 2M+ illegal-parking tickets last year and the shortage is most acute for goods vehicles — which is exactly the underserved segment the original NYC analysis pointed toward.</p>
+      <p id="aboutP2">Vacancy figures come from car park operators and are not available for every venue — where an operator reports a status only (not an exact count), or reports nothing at all, this is shown as "Status only" or "No live data" rather than a number. Distances are straight-line, calculated from the location your browser reports.</p>
+      <p id="aboutP3">Built as a follow-on to an MBA data analytics project on NYC curb-parking enforcement — testing whether the same "smart parking" idea holds up in a market that, unlike NYC, already has strong public real-time parking data. Short answer: general car-park search is well served here already; the sharper open gap is commercial/goods-vehicle loading, which is why LGV/HGV views are included above.</p>
+      <p id="aboutP4">Car park names, addresses and district labels come directly from the government data feeds, which only publish them in English — so those stay in English even when the interface is set to Chinese.</p>
     </div>
   </details>
 </footer>
@@ -432,33 +434,37 @@
 <div class="modal-overlay" id="helpOverlay">
   <div class="modal-card">
     <div class="modal-header">
-      <div class="modal-title">Help &amp; FAQ</div>
+      <div class="modal-title" id="helpTitleText">Help &amp; FAQ</div>
       <button class="modal-close" id="helpCloseBtn" type="button" aria-label="Close">✕</button>
     </div>
     <div class="modal-body" id="helpBody">
       <div class="faq-item">
-        <div class="faq-q">How fresh is the vacancy data?</div>
-        <div class="faq-a">It auto-refreshes every 60 seconds, straight from the Transport Department's live feeds — no caching on my side. Tap the ↻ refresh icon next to the search box any time for an instant update.</div>
+        <div class="faq-q" id="faqQ1">How fresh is the vacancy data?</div>
+        <div class="faq-a" id="faqA1">It auto-refreshes every 60 seconds, straight from the Transport Department's live feeds — no caching on my side. Tap the ↻ refresh icon next to the search box any time for an instant update.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Why do some car parks show "No live data" or "Status only"?</div>
-        <div class="faq-a">That's reported by the car park operator, not guessed by this app — some operators only publish an open/full status rather than an exact space count, and a few don't report live numbers at all. It's shown honestly rather than estimated.</div>
+        <div class="faq-q" id="faqQ2">Why do some car parks show "No live data" or "Status only"?</div>
+        <div class="faq-a" id="faqA2">That's reported by the car park operator, not guessed by this app — some operators only publish an open/full status rather than an exact space count, and a few don't report live numbers at all. It's shown honestly rather than estimated.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">How is distance calculated?</div>
-        <div class="faq-a">Straight-line ("as the crow flies") from the location your browser reports to the car park's coordinates — not walking or driving distance.</div>
+        <div class="faq-q" id="faqQ3">How is distance calculated?</div>
+        <div class="faq-a" id="faqA3">Straight-line ("as the crow flies") from the location your browser reports to the car park's coordinates — not walking or driving distance.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Is my location or usage tracked?</div>
-        <div class="faq-a">No accounts, no ads, no analytics. Your location (if you allow it) is only used on your device to sort by distance — it's never sent anywhere. See the <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a> for details.</div>
+        <div class="faq-q" id="faqQ4">Is my location or usage tracked?</div>
+        <div class="faq-a" id="faqA4">No accounts, no ads, no analytics. Your location (if you allow it) is only used on your device to sort by distance — it's never sent anywhere. See the <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a> for details.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Is this an official government app?</div>
-        <div class="faq-a">No — it's an independent tool built on top of two public Hong Kong government data feeds. It isn't affiliated with the Transport Department or any government body.</div>
+        <div class="faq-q" id="faqQ5">Is this an official government app?</div>
+        <div class="faq-a" id="faqA5">No — it's an independent tool built on top of two public Hong Kong government data feeds. It isn't affiliated with the Transport Department or any government body.</div>
       </div>
       <div class="faq-item">
-        <div class="faq-q">Can I install this as an app?</div>
-        <div class="faq-a">Yes — scroll down on the main screen to "Add this to your Home Screen" for quick steps on iPhone/iPad and Android.</div>
+        <div class="faq-q" id="faqQ6">Can I install this as an app?</div>
+        <div class="faq-a" id="faqA6">Yes — scroll down on the main screen to "Add this to your Home Screen" for quick steps on iPhone/iPad and Android.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" id="faqQ7">Can I use this in Chinese?</div>
+        <div class="faq-a" id="faqA7">Yes — open the ⋮ menu and tap 中文 / English to switch. Car park names, addresses and districts stay in English either way, since that's how the government feeds publish them.</div>
       </div>
     </div>
     <div class="modal-footer-row">
@@ -494,7 +500,10 @@
     sort: "distance",
     infoLoadedFor: null,
     lastVacancyFetch: null,
-    fetchError: null
+    fetchError: null,
+    lang: "en",
+    statusKind: "loading",
+    statusKey: "statusLoading"
   };
 
   var els = {
@@ -508,6 +517,7 @@
     locSlot: document.getElementById("locBannerSlot"),
     moreBtn: document.getElementById("moreBtn"),
     moreMenu: document.getElementById("moreMenu"),
+    menuLangBtn: document.getElementById("menuLangBtn"),
     menuTourBtn: document.getElementById("menuTourBtn"),
     menuHelpBtn: document.getElementById("menuHelpBtn"),
     menuRateBtn: document.getElementById("menuRateBtn"),
@@ -519,10 +529,344 @@
 
   var PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=io.github.dennissleeve.hkparking";
   var TOUR_KEY = "hkpf_tour_v1_seen";
+  var LANG_KEY = "hkpf_lang";
 
-  function setStatus(kind, text) {
+  // ---------- i18n ----------
+
+  var STRINGS = {
+    en: {
+      pageTitle: "HK Smart Parking Finder — Live Vacancy",
+      tagline: "Live vacancy from data.gov.hk",
+      searchPlaceholder: "Search by name, street or district…",
+      refreshTitle: "Refresh vacancy now",
+      moreTitle: "More",
+      menuLang: "中文",
+      menuTour: "Take the tour",
+      menuHelp: "Help & FAQ",
+      menuRate: "Rate this app",
+      vtabPrivateCar: "🚗 Private car",
+      vtabMotorCycle: "🏍️ Motorcycle",
+      vtabLGV: "🚐 LGV (light goods)",
+      vtabHGV: "🚛 HGV (heavy goods)",
+      allDistricts: "All districts",
+      sortDistance: "Nearest",
+      sortVacancy: "Most spaces",
+      sortName: "A–Z",
+      initialLoading: "Fetching live car park data from the Transport Department…",
+      loadingVehicleData: "Loading {v} data…",
+      statusLoading: "Loading…",
+      statusLocating: "Locating…",
+      statusRetrying: "Retrying…",
+      statusLive: "Live",
+      statusOffline: "Offline",
+      statusPartial: "Partial data",
+      statusUpdating: "Updating…",
+      statusRetryPending: "Retry pending",
+      vacSpaces: "spaces",
+      vacClosed: "Closed",
+      vacStatusOnly: "Status only",
+      vacNoData: "No live data",
+      evCharger: "⚡ EV charger",
+      accessible: "♿ Accessible",
+      loadingBay: "📦 Loading bay",
+      disabledBaySuffix: " disabled bay",
+      disabledBaysSuffix: " disabled bays",
+      disabledBayFree: " free",
+      tdCarPark: "TD car park",
+      unnamedCarPark: "Unnamed car park",
+      directions: "Directions →",
+      mapLink: "Map →",
+      updatedPrefix: "Updated ",
+      agoSec: "s ago",
+      agoMin: "m ago",
+      agoHour: "h ago",
+      agoDay: "d ago",
+      emptyState: "No car parks match your search/filters.<br>Try clearing the search box or switching districts.",
+      carparkSingular: " car park",
+      carparkPlural: " car parks",
+      turnOnLocation: " · turn on location for distances",
+      showingFirst: "Showing nearest/first 200 of ",
+      resultsRefine: " results — refine your search to see more.",
+      locDenied: "Location access was denied, so distances aren't shown. You can still search by district or name.",
+      locTryAgain: "Try again",
+      locUnsupported: "Your browser doesn't support location. Search by district or name instead.",
+      locDefault: "Turn on location to see the nearest car parks first.",
+      locUseMine: "Use my location",
+      errCouldntLoad: "Couldn't load live parking data.",
+      errHint: "This can happen if data.gov.hk is briefly unavailable, or if your connection blocks it.",
+      errRetry: "Try again",
+      installTitle: "📲 Add this to your Home Screen",
+      installIosPlat: "iPhone / iPad (Safari)",
+      installIos1: 'Tap the <b>Share</b> icon (square with an arrow, in the toolbar)',
+      installIos2: "Scroll down and tap <b>Add to Home Screen</b>",
+      installIos3: "Tap <b>Add</b> — top right",
+      installAndroidPlat: "Android (Chrome)",
+      installAndroid1: "Tap the <b>⋮</b> menu — top right",
+      installAndroid2: "Tap <b>Add to Home screen</b> (or <b>Install app</b>)",
+      installAndroid3: "Tap <b>Add</b> / <b>Install</b> to confirm",
+      installNote: "After that, open it from its own icon — full-screen, no browser address bar — and it'll still pull live vacancy data fresh every time, exactly like it does now.",
+      aboutSummary: "About this tool & data sources",
+      aboutP1: 'This finder calls two official Hong Kong government feeds directly from your browser, refreshed automatically every 60 seconds — nothing passes through any server of mine. For <b>Private car</b> and <b>Motorcycle</b>, it combines the Transport Department\'s <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">territory-wide vacancy feed</a> (all 18 districts) with the <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">Parking Vacancy Data (One-Stop Version)</a> API. For <b>LGV/HGV</b>, only the one-stop API has a vehicle type actually stated, so those two views are limited to the car parks it covers — which, in practice, means Kwun Tong, Kowloon Bay, San Po Kong and Kai Tak (the Energizing Kowloon East smart-parking zone). That gap is itself a data point: official real-time reporting for goods vehicles barely exists outside one pilot district, even though HK logged 2M+ illegal-parking tickets last year and the shortage is most acute for goods vehicles — which is exactly the underserved segment the original NYC analysis pointed toward.',
+      aboutP2: 'Vacancy figures come from car park operators and are not available for every venue — where an operator reports a status only (not an exact count), or reports nothing at all, this is shown as "Status only" or "No live data" rather than a number. Distances are straight-line, calculated from the location your browser reports.',
+      aboutP3: 'Built as a follow-on to an MBA data analytics project on NYC curb-parking enforcement — testing whether the same "smart parking" idea holds up in a market that, unlike NYC, already has strong public real-time parking data. Short answer: general car-park search is well served here already; the sharper open gap is commercial/goods-vehicle loading, which is why LGV/HGV views are included above.',
+      aboutP4: "Car park names, addresses and district labels come directly from the government data feeds, which only publish them in English — so those stay in English even when the interface is set to Chinese.",
+      helpTitle: "Help & FAQ",
+      faqQ1: "How fresh is the vacancy data?",
+      faqA1: "It auto-refreshes every 60 seconds, straight from the Transport Department's live feeds — no caching on my side. Tap the ↻ refresh icon next to the search box any time for an instant update.",
+      faqQ2: 'Why do some car parks show "No live data" or "Status only"?',
+      faqA2: "That's reported by the car park operator, not guessed by this app — some operators only publish an open/full status rather than an exact space count, and a few don't report live numbers at all. It's shown honestly rather than estimated.",
+      faqQ3: "How is distance calculated?",
+      faqA3: 'Straight-line ("as the crow flies") from the location your browser reports to the car park\'s coordinates — not walking or driving distance.',
+      faqQ4: "Is my location or usage tracked?",
+      faqA4: 'No accounts, no ads, no analytics. Your location (if you allow it) is only used on your device to sort by distance — it\'s never sent anywhere. See the <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a> for details.',
+      faqQ5: "Is this an official government app?",
+      faqA5: "No — it's an independent tool built on top of two public Hong Kong government data feeds. It isn't affiliated with the Transport Department or any government body.",
+      faqQ6: "Can I install this as an app?",
+      faqA6: 'Yes — scroll down on the main screen to "Add this to your Home Screen" for quick steps on iPhone/iPad and Android.',
+      faqQ7: "Can I use this in Chinese?",
+      faqA7: "Yes — open the ⋮ menu and tap 中文 / English to switch. Car park names, addresses and districts stay in English either way, since that's how the government feeds publish them.",
+      gotIt: "Got it",
+      closeLabel: "Close",
+      tourWelcomeTitle: "Welcome to HK Smart Parking Finder 👋",
+      tourWelcomeBody: "A quick 20-second tour of the basics — live vacancy, filters and search. You can skip this any time.",
+      tourVtypeTitle: "Pick your vehicle type",
+      tourVtypeBody: "Switch between Private car, Motorcycle, LGV and HGV — results, filters and sorting all update for that vehicle type.",
+      tourSearchTitle: "Search by name, street or district",
+      tourSearchBody: "Start typing to narrow the list instantly — no need to press enter.",
+      tourFilterTitle: "Filter and sort",
+      tourFilterBody: "Narrow to one district, or sort by nearest, most spaces, or name.",
+      tourRefreshTitle: "Refresh any time",
+      tourRefreshBody: "Vacancy auto-refreshes every 60 seconds — tap here whenever you want the very latest numbers right now.",
+      tourMoreTitle: "Help, tour, language and rating live here",
+      tourMoreBody: "Come back to this menu any time to replay this tour, switch languages, open the Help &amp; FAQ, or rate the app. Enjoy — happy parking!",
+      tourSkip: "Skip",
+      tourBack: "Back",
+      tourNext: "Next",
+      tourStepOf: "Step {i} of {n}"
+    },
+    zh: {
+      pageTitle: "香港智能泊車位搜尋器 — 即時車位",
+      tagline: "data.gov.hk 即時車位資訊",
+      searchPlaceholder: "按名稱、街道或地區搜尋…",
+      refreshTitle: "立即更新車位資料",
+      moreTitle: "更多",
+      menuLang: "English",
+      menuTour: "導覽教學",
+      menuHelp: "說明與常見問題",
+      menuRate: "為此應用程式評分",
+      vtabPrivateCar: "🚗 私家車",
+      vtabMotorCycle: "🏍️ 電單車",
+      vtabLGV: "🚐 輕型貨車",
+      vtabHGV: "🚛 重型貨車",
+      allDistricts: "所有地區",
+      sortDistance: "最近",
+      sortVacancy: "車位最多",
+      sortName: "名稱",
+      initialLoading: "正在從運輸署讀取即時車位資料…",
+      loadingVehicleData: "正在載入{v}資料…",
+      statusLoading: "載入中…",
+      statusLocating: "定位中…",
+      statusRetrying: "重試中…",
+      statusLive: "即時",
+      statusOffline: "離線",
+      statusPartial: "部分資料",
+      statusUpdating: "更新中…",
+      statusRetryPending: "等候重試",
+      vacSpaces: "個車位",
+      vacClosed: "已關閉",
+      vacStatusOnly: "僅顯示狀態",
+      vacNoData: "沒有即時資料",
+      evCharger: "⚡ 電動車充電",
+      accessible: "♿ 無障礙設施",
+      loadingBay: "📦 上落貨區",
+      disabledBaySuffix: " 個傷殘人士車位",
+      disabledBaysSuffix: " 個傷殘人士車位",
+      disabledBayFree: " 空置",
+      tdCarPark: "運輸署咪錶車位",
+      unnamedCarPark: "未命名停車場",
+      directions: "路線 →",
+      mapLink: "地圖 →",
+      updatedPrefix: "更新於 ",
+      agoSec: " 秒前",
+      agoMin: " 分鐘前",
+      agoHour: " 小時前",
+      agoDay: " 天前",
+      emptyState: "沒有符合搜尋/篩選條件的停車場。<br>請嘗試清除搜尋框或切換地區。",
+      carparkSingular: " 個停車場",
+      carparkPlural: " 個停車場",
+      turnOnLocation: " · 開啟定位以顯示距離",
+      showingFirst: "顯示最近 / 首 200 個，共 ",
+      resultsRefine: " 個結果 — 請縮窄搜尋範圍以查看更多。",
+      locDenied: "位置存取被拒絕，因此不會顯示距離。你仍可按地區或名稱搜尋。",
+      locTryAgain: "重試",
+      locUnsupported: "你的瀏覽器不支援定位功能，請改用地區或名稱搜尋。",
+      locDefault: "開啟定位以優先顯示最近的停車場。",
+      locUseMine: "使用我的位置",
+      errCouldntLoad: "無法載入即時泊車資料。",
+      errHint: "這可能是因為 data.gov.hk 暫時無法連接，或你的網絡連線被封鎖。",
+      errRetry: "重試",
+      installTitle: "📲 加入主畫面",
+      installIosPlat: "iPhone / iPad（Safari）",
+      installIos1: "輕觸工具列上的 <b>分享</b> 圖示（方形加箭嘴）",
+      installIos2: "向下捲動並輕觸 <b>加入主畫面</b>",
+      installIos3: "輕觸右上角的 <b>加入</b>",
+      installAndroidPlat: "Android（Chrome）",
+      installAndroid1: "輕觸右上角的 <b>⋮</b> 選單",
+      installAndroid2: "輕觸 <b>加入主畫面</b>（或 <b>安裝應用程式</b>）",
+      installAndroid3: "輕觸 <b>加入</b> / <b>安裝</b> 確認",
+      installNote: "完成後，可直接從主畫面圖示開啟 — 全螢幕顯示，沒有瀏覽器網址列 — 並會像現在一樣，每次都讀取最新的即時車位資料。",
+      aboutSummary: "關於此工具及資料來源",
+      aboutP1: '此搜尋器會直接從你的瀏覽器呼叫兩個香港政府官方資料來源，每 60 秒自動更新一次 — 全部資料都不會經過我的伺服器。就 <b>私家車</b> 及 <b>電單車</b> 而言，本工具結合了運輸署的 <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">全港車位空置資料</a>（涵蓋全港 18 區）以及 <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">停車場車位資料（一站式版本）</a> API。至於 <b>輕型貨車／重型貨車</b>，只有一站式 API 有明確列出車輛類型，因此這兩個分類只涵蓋該 API 所包括的停車場 — 實際上主要是觀塘、九龍灣、新蒲崗及啟德（起動九龍東智慧泊車試點區）。這個數據缺口本身就說明了問題：香港去年錄得逾 200 萬張違例泊車告票，但貨車泊位的即時資訊幾乎只在這一個試點地區才有提供，而貨車正正是最缺乏車位的一群。',
+      aboutP2: '車位數字由各停車場營運者提供，並非每個地點都有 — 若營運者只提供開放／爆滿等狀態（沒有確實數字），或完全沒有提供即時資料，本工具會如實顯示為「僅顯示狀態」或「沒有即時資料」，而不會自行估算。距離一律以直線距離計算，根據你的瀏覽器所提供的位置計算得出。',
+      aboutP3: '此工具是一個 MBA 數據分析課程項目（分析紐約路邊泊車執法情況）的延伸作品 — 旨在測試同一套「智慧泊車」概念，在已經擁有良好公開即時車位數據的香港（有別於紐約）是否仍然適用。簡單結論：一般私家車泊車搜尋在香港已有不錯的服務；真正仍然存在的缺口，在於商用／貨車裝卸車位，這正是本工具加入輕型貨車／重型貨車分類的原因。',
+      aboutP4: "停車場名稱、地址及地區名稱均直接來自政府資料來源，而該等來源只提供英文版本 — 因此即使介面設定為中文，這部分資料仍會以英文顯示。",
+      helpTitle: "說明與常見問題",
+      faqQ1: "車位資料有多新？",
+      faqA1: "資料每 60 秒自動更新一次，直接來自運輸署的即時資料來源 — 不經過任何快取。你亦可隨時輕觸搜尋框旁的 ↻ 重新整理圖示，即時更新資料。",
+      faqQ2: "為什麼有些停車場顯示「沒有即時資料」或「僅顯示狀態」？",
+      faqA2: "這是由停車場營運者自行提供的資訊，並非本應用程式估算 — 部分營運者只公布開放／爆滿等狀態，而沒有確實車位數字；亦有部分完全沒有提供即時資料。本工具一律如實顯示，不作估計。",
+      faqQ3: "距離是如何計算的？",
+      faqA3: "一律以直線距離（「飛行距離」）計算，由你的瀏覽器所提供的位置，計算至停車場座標的距離 — 並非實際步行或駕駛距離。",
+      faqQ4: "我的位置或使用情況會被追蹤嗎？",
+      faqA4: '不會。本工具沒有帳戶系統，亦沒有廣告或分析追蹤。你的位置（如你允許使用）只會在你的裝置上用作計算距離排序 — 絕不會傳送到任何地方。詳情請參閱 <a href="privacy.html" target="_blank" rel="noopener">私隱政策</a>。',
+      faqQ5: "這是官方政府應用程式嗎？",
+      faqA5: "不是 — 這是一個獨立開發的工具，建基於兩個公開的香港政府資料來源，與運輸署或任何政府部門並無從屬關係。",
+      faqQ6: "可以把它安裝成應用程式嗎？",
+      faqA6: "可以 — 請捲動至主畫面下方的「加入主畫面」部分，查看 iPhone/iPad 及 Android 的簡易步驟。",
+      faqQ7: "可以使用中文版本嗎？",
+      faqA7: "可以 — 開啟 ⋮ 選單，輕觸「中文 / English」即可切換語言。停車場名稱、地址及地區名稱不論語言設定為何，均會維持英文顯示，因為政府資料來源只提供英文版本。",
+      gotIt: "知道了",
+      closeLabel: "關閉",
+      tourWelcomeTitle: "歡迎使用香港智能泊車位搜尋器 👋",
+      tourWelcomeBody: "20 秒快速導覽基本功能 — 即時車位、篩選及搜尋。你可以隨時跳過導覽。",
+      tourVtypeTitle: "選擇你的車輛類型",
+      tourVtypeBody: "可在私家車、電單車、輕型貨車及重型貨車之間切換 — 搜尋結果、篩選及排序都會相應更新。",
+      tourSearchTitle: "按名稱、街道或地區搜尋",
+      tourSearchBody: "開始輸入即可即時縮窄結果範圍 — 不需要按 Enter。",
+      tourFilterTitle: "篩選及排序",
+      tourFilterBody: "可篩選至單一地區，或按最近、車位最多或名稱排序。",
+      tourRefreshTitle: "隨時重新整理",
+      tourRefreshBody: "車位資料每 60 秒自動更新一次 — 想立即取得最新數字，隨時輕觸這裡即可。",
+      tourMoreTitle: "說明、導覽、語言及評分都在這裡",
+      tourMoreBody: "隨時回到這個選單重溫導覽、切換語言、開啟說明與常見問題，或為應用程式評分。祝你泊車順利！",
+      tourSkip: "跳過",
+      tourBack: "上一步",
+      tourNext: "下一步",
+      tourStepOf: "第 {i} 步，共 {n} 步"
+    }
+  };
+
+  var DISTRICT_ZH = {
+    "Central and Western": "中西區",
+    "Wan Chai": "灣仔區",
+    "Eastern": "東區",
+    "Southern": "南區",
+    "Yau Tsim Mong": "油尖旺區",
+    "Sham Shui Po": "深水埗區",
+    "Kowloon City": "九龍城區",
+    "Wong Tai Sin": "黃大仙區",
+    "Kwun Tong": "觀塘區",
+    "Kwai Tsing": "葵青區",
+    "Tsuen Wan": "荃灣區",
+    "Tuen Mun": "屯門區",
+    "Yuen Long": "元朗區",
+    "North": "北區",
+    "Tai Po": "大埔區",
+    "Sha Tin": "沙田區",
+    "Sai Kung": "西貢區",
+    "Islands": "離島區"
+  };
+
+  var VTYPE_LABEL_KEY = { privateCar: "vtabPrivateCar", motorCycle: "vtabMotorCycle", LGV: "vtabLGV", HGV: "vtabHGV" };
+  var SORT_LABEL_KEY = { distance: "sortDistance", vacancy: "sortVacancy", name: "sortName" };
+
+  function t(key) {
+    var dict = STRINGS[state.lang] || STRINGS.en;
+    var v = dict[key];
+    if (v == null) v = STRINGS.en[key];
+    return v == null ? key : v;
+  }
+
+  function tf(key, vars) {
+    var s = t(key);
+    if (!vars) return s;
+    Object.keys(vars).forEach(function(k) {
+      s = s.split("{" + k + "}").join(vars[k]);
+    });
+    return s;
+  }
+
+  function districtLabel(d) {
+    if (state.lang === "zh" && DISTRICT_ZH[d]) return DISTRICT_ZH[d];
+    return d;
+  }
+
+  function applyStaticI18n() {
+    document.title = t("pageTitle");
+    var html = document.documentElement;
+    html.setAttribute("lang", state.lang === "zh" ? "zh-Hant-HK" : "en");
+
+    document.getElementById("appTagline").textContent = t("tagline");
+    els.searchInput.setAttribute("placeholder", t("searchPlaceholder"));
+    els.refreshBtn.setAttribute("title", t("refreshTitle"));
+    els.moreBtn.setAttribute("title", t("moreTitle"));
+
+    document.getElementById("menuLangLabel").textContent = t("menuLang");
+    document.getElementById("menuTourLabel").textContent = t("menuTour");
+    document.getElementById("menuHelpLabel").textContent = t("menuHelp");
+    document.getElementById("menuRateLabel").textContent = t("menuRate");
+
+    Array.prototype.forEach.call(els.vtabs.querySelectorAll(".vtab"), function(el) {
+      var key = VTYPE_LABEL_KEY[el.getAttribute("data-vtype")];
+      if (key) el.textContent = t(key);
+    });
+
+    Array.prototype.forEach.call(document.querySelectorAll(".sort-btn"), function(btn) {
+      var key = SORT_LABEL_KEY[btn.getAttribute("data-sort")];
+      if (key) btn.textContent = t(key);
+    });
+
+    var initMsg = document.getElementById("initialLoadingMsg");
+    if (initMsg) initMsg.textContent = t("initialLoading");
+
+    document.getElementById("installTitleText").textContent = t("installTitle");
+    document.getElementById("installIosPlatText").textContent = t("installIosPlat");
+    document.getElementById("installIos1").innerHTML = t("installIos1");
+    document.getElementById("installIos2").innerHTML = t("installIos2");
+    document.getElementById("installIos3").innerHTML = t("installIos3");
+    document.getElementById("installAndroidPlatText").textContent = t("installAndroidPlat");
+    document.getElementById("installAndroid1").innerHTML = t("installAndroid1");
+    document.getElementById("installAndroid2").innerHTML = t("installAndroid2");
+    document.getElementById("installAndroid3").innerHTML = t("installAndroid3");
+    document.getElementById("installNoteText").textContent = t("installNote");
+
+    document.getElementById("aboutSummaryText").textContent = t("aboutSummary");
+    document.getElementById("aboutP1").innerHTML = t("aboutP1");
+    document.getElementById("aboutP2").innerHTML = t("aboutP2");
+    document.getElementById("aboutP3").innerHTML = t("aboutP3");
+    document.getElementById("aboutP4").textContent = t("aboutP4");
+
+    document.getElementById("helpTitleText").textContent = t("helpTitle");
+    for (var i = 1; i <= 7; i++) {
+      var qEl = document.getElementById("faqQ" + i);
+      var aEl = document.getElementById("faqA" + i);
+      if (qEl) qEl.textContent = t("faqQ" + i);
+      if (aEl) aEl.innerHTML = t("faqA" + i);
+    }
+    els.helpTourBtn.textContent = t("menuTour");
+    els.helpCloseBtn2.textContent = t("gotIt");
+    els.helpCloseBtn.setAttribute("aria-label", t("closeLabel"));
+
+    els.statusText.textContent = t(state.statusKey);
+
+    populateDistrictOptions();
+  }
+
+  function setStatus(kind, key) {
+    state.statusKind = kind;
+    state.statusKey = key;
     els.statusDot.className = "status-dot " + kind;
-    els.statusText.textContent = text;
+    els.statusText.textContent = t(key);
   }
 
   function haversineKm(lat1, lon1, lat2, lon2) {
@@ -545,16 +889,15 @@
 
   function timeAgo(iso) {
     if (!iso) return null;
-    var t = Date.parse(iso.replace(" ", "T"));
-    if (isNaN(t)) return null;
-    var diffSec = Math.round((Date.now() - t) / 1000);
+    var ts = Date.parse(iso.replace(" ", "T"));
+    if (isNaN(ts)) return null;
+    var diffSec = Math.round((Date.now() - ts) / 1000);
     if (diffSec < 0) diffSec = 0;
-    if (diffSec < 60) return diffSec + "s ago";
-    if (diffSec < 3600) return Math.round(diffSec/60) + "m ago";
-    if (diffSec < 86400) return Math.round(diffSec/3600) + "h ago";
-    return Math.round(diffSec/86400) + "d ago";
+    if (diffSec < 60) return diffSec + t("agoSec");
+    if (diffSec < 3600) return Math.round(diffSec/60) + t("agoMin");
+    if (diffSec < 86400) return Math.round(diffSec/3600) + t("agoHour");
+    return Math.round(diffSec/86400) + t("agoDay");
   }
-
   // ---------- Data fetching ----------
 
   function fetchJson(url) {
@@ -708,7 +1051,7 @@
         out.push({
           id: sourceTag + "_" + id,
           source: sourceTag,
-          name: info.name || "Unnamed car park",
+          name: info.name || t("unnamedCarPark"),
           address: info.displayAddress || (info.address && info.address.streetName) || "",
           district: districtRaw.replace(/\s*District$/i, "").trim(),
           nature: info.nature || (sourceTag === "td" ? "TD car park" : ""),
@@ -735,8 +1078,8 @@
     state.merged.forEach(function(cp) { if (cp.district) districts[cp.district] = true; });
     var list = Object.keys(districts).sort();
     var current = els.districtSelect.value;
-    els.districtSelect.innerHTML = '<option value="">All districts</option>' +
-      list.map(function(d) { return '<option value="' + escapeHtml(d) + '">' + escapeHtml(d) + '</option>'; }).join("");
+    els.districtSelect.innerHTML = '<option value="">' + escapeHtml(t("allDistricts")) + '</option>' +
+      list.map(function(d) { return '<option value="' + escapeHtml(d) + '">' + escapeHtml(districtLabel(d)) + '</option>'; }).join("");
     if (list.indexOf(current) !== -1) els.districtSelect.value = current;
   }
   // ---------- Rendering ----------
@@ -745,28 +1088,32 @@
     var v = cp.vac;
     if (v.status === "count") {
       var cls = v.total <= 0 ? "vac-full" : (v.total < 10 ? "vac-low" : "vac-good");
-      return '<div class="vac-badge ' + cls + '">' + v.total + '<small>spaces</small></div>';
+      return '<div class="vac-badge ' + cls + '">' + v.total + '<small>' + escapeHtml(t("vacSpaces")) + '</small></div>';
     }
-    if (v.status === "closed") return '<div class="vac-badge vac-full">Closed</div>';
-    if (v.status === "status-only") return '<div class="vac-badge vac-unknown">Status only</div>';
-    return '<div class="vac-badge vac-unknown">No live data</div>';
+    if (v.status === "closed") return '<div class="vac-badge vac-full">' + escapeHtml(t("vacClosed")) + '</div>';
+    if (v.status === "status-only") return '<div class="vac-badge vac-unknown">' + escapeHtml(t("vacStatusOnly")) + '</div>';
+    return '<div class="vac-badge vac-unknown">' + escapeHtml(t("vacNoData")) + '</div>';
   }
 
   function facilityBadges(cp) {
     var chips = [];
-    if (cp.facilities.indexOf("evcharger") !== -1 || cp.facilities.indexOf("ev") !== -1) chips.push("⚡ EV charger");
-    if (cp.facilities.indexOf("disabilities") !== -1 || cp.facilities.indexOf("dis") !== -1) chips.push("♿ Accessible");
-    if (cp.facilities.indexOf("unloading") !== -1) chips.push("📦 Loading bay");
-    if (cp.disabledVacancy != null) chips.push("♿ " + cp.disabledVacancy + " disabled bay" + (cp.disabledVacancy === 1 ? "" : "s") + " free");
-    if (cp.nature) chips.push(cp.nature.charAt(0).toUpperCase() + cp.nature.slice(1));
+    if (cp.facilities.indexOf("evcharger") !== -1 || cp.facilities.indexOf("ev") !== -1) chips.push(t("evCharger"));
+    if (cp.facilities.indexOf("disabilities") !== -1 || cp.facilities.indexOf("dis") !== -1) chips.push(t("accessible"));
+    if (cp.facilities.indexOf("unloading") !== -1) chips.push(t("loadingBay"));
+    if (cp.disabledVacancy != null) {
+      chips.push("♿ " + cp.disabledVacancy + (cp.disabledVacancy === 1 ? t("disabledBaySuffix") : t("disabledBaysSuffix")) + t("disabledBayFree"));
+    }
+    if (cp.nature) {
+      chips.push(cp.nature === "TD car park" ? t("tdCarPark") : (cp.nature.charAt(0).toUpperCase() + cp.nature.slice(1)));
+    }
     return chips;
   }
 
   function cardHtml(cp) {
     var mapUrl = (cp.lat && cp.lng) ? ("https://www.google.com/maps/search/?api=1&query=" + cp.lat + "," + cp.lng) : null;
     var distHtml = cp.dist != null
-      ? '<div class="card-dist">' + cp.dist.toFixed(cp.dist < 10 ? 1 : 0) + ' km' + (mapUrl ? '<a class="arrow-link" href="' + mapUrl + '" target="_blank" rel="noopener">Directions →</a>' : '') + '</div>'
-      : (mapUrl ? '<div class="card-dist"><a class="arrow-link" href="' + mapUrl + '" target="_blank" rel="noopener">Map →</a></div>' : '');
+      ? '<div class="card-dist">' + cp.dist.toFixed(cp.dist < 10 ? 1 : 0) + ' km' + (mapUrl ? '<a class="arrow-link" href="' + mapUrl + '" target="_blank" rel="noopener">' + escapeHtml(t("directions")) + '</a>' : '') + '</div>'
+      : (mapUrl ? '<div class="card-dist"><a class="arrow-link" href="' + mapUrl + '" target="_blank" rel="noopener">' + escapeHtml(t("mapLink")) + '</a></div>' : '');
     var updated = cp.vac.lastupdate ? timeAgo(cp.vac.lastupdate) : null;
     var chips = facilityBadges(cp);
     return '' +
@@ -774,7 +1121,7 @@
         '<div class="card-top">' +
           '<div>' +
             '<div class="card-name">' + escapeHtml(cp.name) + '</div>' +
-            '<div class="card-meta">' + escapeHtml(cp.address) + (cp.district ? ' · ' + escapeHtml(cp.district) : '') + '</div>' +
+            '<div class="card-meta">' + escapeHtml(cp.address) + (cp.district ? ' · ' + escapeHtml(districtLabel(cp.district)) : '') + '</div>' +
           '</div>' +
           distHtml +
         '</div>' +
@@ -782,7 +1129,7 @@
           vacBadgeHtml(cp) +
           '<div class="badges">' + chips.map(function(c){ return '<span class="badge-chip">' + escapeHtml(c) + '</span>'; }).join("") + '</div>' +
         '</div>' +
-        (updated ? '<div class="updated-time" style="margin-top:8px;">Updated ' + updated + '</div>' : '') +
+        (updated ? '<div class="updated-time" style="margin-top:8px;">' + escapeHtml(t("updatedPrefix")) + updated + '</div>' : '') +
       '</div>';
   }
 
@@ -794,7 +1141,8 @@
       list = list.filter(function(cp) {
         return (cp.name && cp.name.toLowerCase().indexOf(q) !== -1) ||
                (cp.address && cp.address.toLowerCase().indexOf(q) !== -1) ||
-               (cp.district && cp.district.toLowerCase().indexOf(q) !== -1);
+               (cp.district && cp.district.toLowerCase().indexOf(q) !== -1) ||
+               (cp.district && districtLabel(cp.district).indexOf(state.search.trim()) !== -1);
       });
     }
     if (state.district) {
@@ -818,16 +1166,16 @@
     }
 
     if (!list.length) {
-      els.content.innerHTML = '<div class="empty-state">No car parks match your search/filters.<br>Try clearing the search box or switching districts.</div>';
+      els.content.innerHTML = '<div class="empty-state">' + t("emptyState") + '</div>';
       return;
     }
 
-    var countLabel = list.length + (list.length === 1 ? ' car park' : ' car parks') +
-      (state.userLoc ? '' : ' · turn on location for distances');
+    var countLabel = list.length + (state.lang === "zh" ? t("carparkPlural") : (list.length === 1 ? t("carparkSingular") : t("carparkPlural"))) +
+      (state.userLoc ? '' : t("turnOnLocation"));
     var html = '<div class="result-count">' + countLabel + '</div>';
     html += list.slice(0, 200).map(cardHtml).join("");
     if (list.length > 200) {
-      html += '<div class="result-count">Showing nearest/first 200 of ' + list.length + ' results — refine your search to see more.</div>';
+      html += '<div class="result-count">' + escapeHtml(t("showingFirst")) + list.length + escapeHtml(t("resultsRefine")) + '</div>';
     }
     els.content.innerHTML = html;
   }
@@ -836,15 +1184,15 @@
     if (state.locStatus === "granted") { els.locSlot.innerHTML = ""; return; }
     var msg, btnLabel;
     if (state.locStatus === "denied") {
-      msg = "Location access was denied, so distances aren't shown. You can still search by district or name.";
-      btnLabel = "Try again";
+      msg = t("locDenied");
+      btnLabel = t("locTryAgain");
     } else if (state.locStatus === "unsupported") {
-      msg = "Your browser doesn't support location. Search by district or name instead.";
+      msg = t("locUnsupported");
       els.locSlot.innerHTML = '<div class="loc-banner"><span>' + msg + '</span></div>';
       return;
     } else {
-      msg = "Turn on location to see the nearest car parks first.";
-      btnLabel = "Use my location";
+      msg = t("locDefault");
+      btnLabel = t("locUseMine");
     }
     els.locSlot.innerHTML = '<div class="loc-banner"><span>' + msg + '</span><button id="locBtn">' + btnLabel + '</button></div>';
     var btn = document.getElementById("locBtn");
@@ -853,13 +1201,12 @@
 
   function renderError(message) {
     els.content.innerHTML = '<div class="error-state">' +
-      'Couldn\'t load live parking data.<br><span class="mono" style="font-size:11px;">' + escapeHtml(message) + '</span>' +
-      '<br>This can happen if data.gov.hk is briefly unavailable, or if your connection blocks it.' +
-      '<br><button id="retryBtn">Try again</button></div>';
+      escapeHtml(t("errCouldntLoad")) + '<br><span class="mono" style="font-size:11px;">' + escapeHtml(message) + '</span>' +
+      '<br>' + escapeHtml(t("errHint")) +
+      '<br><button id="retryBtn">' + escapeHtml(t("errRetry")) + '</button></div>';
     var btn = document.getElementById("retryBtn");
     if (btn) btn.addEventListener("click", function() { loadAll(true); });
   }
-
   // ---------- Location ----------
 
   function requestLocation() {
@@ -868,7 +1215,7 @@
       renderLocBanner();
       return;
     }
-    setStatus("loading", "Locating…");
+    setStatus("loading", "statusLocating");
     navigator.geolocation.getCurrentPosition(function(pos) {
       state.userLoc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
       state.locStatus = "granted";
@@ -876,11 +1223,11 @@
       renderLocBanner();
       buildMerged();
       render();
-      setStatus("ok", "Live");
+      setStatus("ok", "statusLive");
     }, function(err) {
       state.locStatus = "denied";
       renderLocBanner();
-      setStatus("ok", "Live");
+      setStatus("ok", "statusLive");
     }, { enableHighAccuracy: false, timeout: 8000, maximumAge: 300000 });
   }
 
@@ -891,7 +1238,7 @@
   }
 
   function loadAll(isRetry) {
-    setStatus("loading", isRetry ? "Retrying…" : "Loading…");
+    setStatus("loading", isRetry ? "statusRetrying" : "statusLoading");
     var needInfo = state.infoLoadedFor !== state.vehicleType;
     var tasks = [loadVacancy(state.vehicleType)];
     if (needInfo) tasks.unshift(loadInfo(state.vehicleType));
@@ -901,7 +1248,7 @@
       buildMerged();
       populateDistrictOptions();
       render();
-      setStatus("ok", "Live");
+      setStatus("ok", "statusLive");
     }).catch(function(err) {
       // One feed can fail while the other still has data (e.g. api.data.gov.hk down but
       // the TD territory-wide feed up, or vice versa) — show whatever we do have.
@@ -910,9 +1257,9 @@
       populateDistrictOptions();
       if (state.merged.length) {
         render();
-        setStatus("err", "Partial data");
+        setStatus("err", "statusPartial");
       } else {
-        setStatus("err", "Offline");
+        setStatus("err", "statusOffline");
         renderError(state.fetchError);
       }
     });
@@ -920,15 +1267,15 @@
 
   function refreshVacancyOnly() {
     if (document.hidden) return;
-    setStatus("loading", "Updating…");
+    setStatus("loading", "statusUpdating");
     var tasks = [loadVacancy(state.vehicleType)];
     if (usesTdFeed() && state.tdStatus === "loaded") tasks.push(loadTdMeterVacancy());
     Promise.all(tasks).then(function() {
       buildMerged();
       render();
-      setStatus("ok", "Live");
+      setStatus("ok", "statusLive");
     }).catch(function(err) {
-      setStatus("err", "Retry pending");
+      setStatus("err", "statusRetryPending");
     });
   }
   // ---------- Events ----------
@@ -994,41 +1341,15 @@
     closeMoreMenu();
     window.location.href = PLAY_STORE_URL;
   });
-
   // ---------- Onboarding tour ----------
 
   var TOUR_STEPS = [
-    {
-      target: null,
-      title: "Welcome to HK Smart Parking Finder 👋",
-      body: "A quick 20-second tour of the basics — live vacancy, filters and search. You can skip this any time."
-    },
-    {
-      target: "#vtabs",
-      title: "Pick your vehicle type",
-      body: "Switch between Private car, Motorcycle, LGV and HGV — results, filters and sorting all update for that vehicle type."
-    },
-    {
-      target: ".search-box",
-      title: "Search by name, street or district",
-      body: "Start typing to narrow the list instantly — no need to press enter."
-    },
-    {
-      target: ".filter-row",
-      title: "Filter and sort",
-      body: "Narrow to one district, or sort by nearest, most spaces, or name."
-    },
-    {
-      target: "#refreshBtn",
-      title: "Refresh any time",
-      body: "Vacancy auto-refreshes every 60 seconds — tap here whenever you want the very latest numbers right now."
-    },
-    {
-      target: "#moreBtn",
-      title: "Help, tour and rating live here",
-      body: "Come back to this menu any time to replay this tour, open the Help &amp; FAQ, or rate the app. Enjoy — happy parking!",
-      final: true
-    }
+    { target: null, titleKey: "tourWelcomeTitle", bodyKey: "tourWelcomeBody" },
+    { target: "#vtabs", titleKey: "tourVtypeTitle", bodyKey: "tourVtypeBody" },
+    { target: ".search-box", titleKey: "tourSearchTitle", bodyKey: "tourSearchBody" },
+    { target: ".filter-row", titleKey: "tourFilterTitle", bodyKey: "tourFilterBody" },
+    { target: "#refreshBtn", titleKey: "tourRefreshTitle", bodyKey: "tourRefreshBody" },
+    { target: "#moreBtn", titleKey: "tourMoreTitle", bodyKey: "tourMoreBody", final: true }
   ];
 
   var tourIdx = 0;
@@ -1048,10 +1369,10 @@
       '<div class="tour-title" id="tourTitle"></div>' +
       '<div class="tour-body" id="tourBody"></div>' +
       '<div class="tour-actions">' +
-        '<button class="tour-btn" id="tourSkipBtn" type="button">Skip</button>' +
+        '<button class="tour-btn" id="tourSkipBtn" type="button"></button>' +
         '<div class="tour-nav">' +
-          '<button class="tour-btn" id="tourBackBtn" type="button">Back</button>' +
-          '<button class="tour-btn tour-next" id="tourNextBtn" type="button">Next</button>' +
+          '<button class="tour-btn" id="tourBackBtn" type="button"></button>' +
+          '<button class="tour-btn tour-next" id="tourNextBtn" type="button"></button>' +
         '</div>' +
       '</div>';
 
@@ -1100,11 +1421,13 @@
       tourEls.spot.style.borderRadius = "50%";
     }
 
-    tourEls.stepCount.textContent = "Step " + (i + 1) + " of " + TOUR_STEPS.length;
-    tourEls.title.textContent = step.title;
-    tourEls.body.innerHTML = step.body;
+    tourEls.stepCount.textContent = tf("tourStepOf", { i: (i + 1), n: TOUR_STEPS.length });
+    tourEls.title.textContent = t(step.titleKey);
+    tourEls.body.innerHTML = t(step.bodyKey);
+    tourEls.skipBtn.textContent = t("tourSkip");
+    tourEls.backBtn.textContent = t("tourBack");
     tourEls.backBtn.style.visibility = (i === 0) ? "hidden" : "visible";
-    tourEls.nextBtn.textContent = step.final ? "Got it" : "Next";
+    tourEls.nextBtn.textContent = step.final ? t("gotIt") : t("tourNext");
   }
 
   function startTour() {
@@ -1124,6 +1447,20 @@
   }
 
   els.menuTourBtn.addEventListener("click", startTour);
+  // ---------- Language switch ----------
+
+  function toggleLanguage() {
+    state.lang = state.lang === "zh" ? "en" : "zh";
+    try { localStorage.setItem(LANG_KEY, state.lang); } catch (e) {}
+    closeMoreMenu();
+    applyStaticI18n();
+    renderLocBanner();
+    render();
+    if (tourEls && tourEls.card.style.display !== "none") showTourStep(tourIdx);
+  }
+
+  els.menuLangBtn.addEventListener("click", toggleLanguage);
+
   els.searchInput.addEventListener("input", function(e) {
     state.search = e.target.value;
     render();
@@ -1136,9 +1473,9 @@
     Promise.all(tasks).then(function() {
       buildMerged();
       render();
-      setStatus("ok", "Live");
+      setStatus("ok", "statusLive");
     }).catch(function(err) {
-      setStatus("err", "Offline");
+      setStatus("err", "statusOffline");
     }).finally(function() {
       setTimeout(function() { els.refreshBtn.classList.remove("spin"); }, 400);
     });
@@ -1147,10 +1484,10 @@
   els.vtabs.addEventListener("click", function(e) {
     var tab = e.target.closest(".vtab");
     if (!tab) return;
-    Array.prototype.forEach.call(els.vtabs.querySelectorAll(".vtab"), function(t) { t.classList.remove("active"); });
+    Array.prototype.forEach.call(els.vtabs.querySelectorAll(".vtab"), function(el) { el.classList.remove("active"); });
     tab.classList.add("active");
     state.vehicleType = tab.getAttribute("data-vtype");
-    els.content.innerHTML = '<div class="loading-state"><div class="spinner-big"></div>Loading ' + tab.textContent.trim() + ' data…</div>';
+    els.content.innerHTML = '<div class="loading-state"><div class="spinner-big"></div>' + tf("loadingVehicleData", { v: tab.textContent.trim() }) + '</div>';
     loadAll(false);
   });
 
@@ -1169,6 +1506,16 @@
   });
 
   // ---------- Init ----------
+
+  try {
+    var savedLang = localStorage.getItem(LANG_KEY);
+    if (savedLang === "en" || savedLang === "zh") {
+      state.lang = savedLang;
+    } else if (/^zh/i.test(navigator.language || "")) {
+      state.lang = "zh";
+    }
+  } catch (e) {}
+  applyStaticI18n();
 
   renderLocBanner();
   requestLocation();
