@@ -255,10 +255,83 @@
     .card-name { font-size: 14px; }
     .vac-badge { font-size: 17px; }
   }
+
+  /* ---- More menu ---- */
+  .more-menu {
+    position: fixed; z-index: 90; min-width: 196px;
+    background: var(--surface-raised); border: 1px solid var(--grid); border-radius: 12px;
+    box-shadow: var(--shadow); padding: 6px; display: none;
+  }
+  .more-menu.open { display: block; }
+  .more-menu-item {
+    display: flex; align-items: center; gap: 9px; width: 100%; text-align: left;
+    border: none; background: transparent; padding: 10px 11px; font-size: 13px; font-weight: 600;
+    color: var(--ink-primary); border-radius: 8px; cursor: pointer; font-family: inherit;
+  }
+  .more-menu-item:hover { background: var(--chip-bg); }
+  .more-menu-item .mi-icon { font-size: 15px; flex-shrink: 0; }
+
+  /* ---- Help / FAQ modal ---- */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 1300; display: none;
+    align-items: flex-end; justify-content: center; background: rgba(0,0,0,0.5);
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-card {
+    width: 100%; max-width: 560px; max-height: 82vh; overflow-y: auto;
+    background: var(--surface-raised); border-radius: 18px 18px 0 0; padding: 18px 20px 24px;
+    box-shadow: var(--shadow);
+  }
+  @media (min-width: 560px) {
+    .modal-overlay { align-items: center; }
+    .modal-card { border-radius: 16px; max-height: 80vh; }
+  }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .modal-title { font-size: 17px; font-weight: 800; }
+  .modal-close {
+    border: none; background: var(--chip-bg); width: 30px; height: 30px; border-radius: 50%;
+    cursor: pointer; font-size: 14px; color: var(--ink-secondary); flex-shrink: 0;
+  }
+  .faq-item { margin-bottom: 16px; }
+  .faq-item:last-child { margin-bottom: 0; }
+  .faq-q { font-size: 13.5px; font-weight: 700; margin-bottom: 4px; }
+  .faq-a { font-size: 13px; color: var(--ink-secondary); line-height: 1.55; }
+  .faq-a a { font-weight: 600; }
+  .modal-footer-row { display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap; }
+  .modal-footer-row button {
+    flex: 1; min-width: 140px; font-size: 12.5px; font-weight: 700; padding: 10px 12px;
+    border-radius: 10px; border: none; cursor: pointer; font-family: inherit;
+  }
+  .modal-footer-row .btn-primary { background: var(--blue); color: #fff; }
+  .modal-footer-row .btn-secondary { background: var(--chip-bg); color: var(--ink-primary); }
+
+  /* ---- Onboarding tour ---- */
+  .tour-spot {
+    position: fixed; z-index: 1201; pointer-events: none;
+    box-shadow: 0 0 0 9999px rgba(11,11,11,0.62);
+    transition: left .25s ease, top .25s ease, width .25s ease, height .25s ease, border-radius .25s ease;
+  }
+  .tour-card {
+    position: fixed; z-index: 1202; left: 50%; bottom: 20px; transform: translateX(-50%);
+    width: min(92vw, 360px); background: var(--surface-raised); color: var(--ink-primary);
+    border-radius: 16px; padding: 18px 20px; box-shadow: var(--shadow); border: 1px solid var(--grid);
+  }
+  .tour-step-count {
+    font-size: 10.5px; font-weight: 800; color: var(--ink-muted); text-transform: uppercase;
+    letter-spacing: 0.05em; margin-bottom: 7px;
+  }
+  .tour-title { font-size: 15.5px; font-weight: 800; margin-bottom: 6px; }
+  .tour-body { font-size: 13px; color: var(--ink-secondary); line-height: 1.55; margin-bottom: 16px; }
+  .tour-actions { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+  .tour-btn {
+    border: none; background: var(--chip-bg); color: var(--ink-primary); font-size: 12.5px;
+    font-weight: 700; padding: 9px 14px; border-radius: 9px; cursor: pointer; font-family: inherit;
+  }
+  .tour-btn.tour-next { background: var(--blue); color: #fff; }
+  .tour-nav { display: flex; gap: 8px; }
 </style>
 </head>
 <body>
-
 <header class="topbar">
   <div class="brand-row">
     <div class="brand">
@@ -282,6 +355,15 @@
     <button class="icon-btn" id="refreshBtn" title="Refresh vacancy now">
       <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0114.36-3.36L23 10M1 14l5.13 4.36A9 9 0 0020.49 15"/></svg>
     </button>
+    <button class="icon-btn" id="moreBtn" title="More">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="5" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="12" cy="19" r="2"/></svg>
+    </button>
+  </div>
+
+  <div class="more-menu" id="moreMenu">
+    <button class="more-menu-item" id="menuTourBtn" type="button"><span class="mi-icon">🧭</span> Take the tour</button>
+    <button class="more-menu-item" id="menuHelpBtn" type="button"><span class="mi-icon">❓</span> Help &amp; FAQ</button>
+    <button class="more-menu-item" id="menuRateBtn" type="button"><span class="mi-icon">★</span> Rate this app</button>
   </div>
 
   <div class="vtabs" id="vtabs">
@@ -347,6 +429,44 @@
   </details>
 </footer>
 
+<div class="modal-overlay" id="helpOverlay">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-title">Help &amp; FAQ</div>
+      <button class="modal-close" id="helpCloseBtn" type="button" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="helpBody">
+      <div class="faq-item">
+        <div class="faq-q">How fresh is the vacancy data?</div>
+        <div class="faq-a">It auto-refreshes every 60 seconds, straight from the Transport Department's live feeds — no caching on my side. Tap the ↻ refresh icon next to the search box any time for an instant update.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why do some car parks show "No live data" or "Status only"?</div>
+        <div class="faq-a">That's reported by the car park operator, not guessed by this app — some operators only publish an open/full status rather than an exact space count, and a few don't report live numbers at all. It's shown honestly rather than estimated.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How is distance calculated?</div>
+        <div class="faq-a">Straight-line ("as the crow flies") from the location your browser reports to the car park's coordinates — not walking or driving distance.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is my location or usage tracked?</div>
+        <div class="faq-a">No accounts, no ads, no analytics. Your location (if you allow it) is only used on your device to sort by distance — it's never sent anywhere. See the <a href="privacy.html" target="_blank" rel="noopener">privacy policy</a> for details.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this an official government app?</div>
+        <div class="faq-a">No — it's an independent tool built on top of two public Hong Kong government data feeds. It isn't affiliated with the Transport Department or any government body.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I install this as an app?</div>
+        <div class="faq-a">Yes — scroll down on the main screen to "Add this to your Home Screen" for quick steps on iPhone/iPad and Android.</div>
+      </div>
+    </div>
+    <div class="modal-footer-row">
+      <button class="btn-secondary" id="helpTourBtn" type="button">Take the tour</button>
+      <button class="btn-primary" id="helpCloseBtn2" type="button">Got it</button>
+    </div>
+  </div>
+</div>
 <script>
 (function() {
   "use strict";
@@ -385,8 +505,20 @@
     vtabs: document.getElementById("vtabs"),
     districtSelect: document.getElementById("districtSelect"),
     content: document.getElementById("content"),
-    locSlot: document.getElementById("locBannerSlot")
+    locSlot: document.getElementById("locBannerSlot"),
+    moreBtn: document.getElementById("moreBtn"),
+    moreMenu: document.getElementById("moreMenu"),
+    menuTourBtn: document.getElementById("menuTourBtn"),
+    menuHelpBtn: document.getElementById("menuHelpBtn"),
+    menuRateBtn: document.getElementById("menuRateBtn"),
+    helpOverlay: document.getElementById("helpOverlay"),
+    helpCloseBtn: document.getElementById("helpCloseBtn"),
+    helpCloseBtn2: document.getElementById("helpCloseBtn2"),
+    helpTourBtn: document.getElementById("helpTourBtn")
   };
+
+  var PLAY_STORE_URL = "https://play.google.com/store/apps/details?id=io.github.dennissleeve.hkparking";
+  var TOUR_KEY = "hkpf_tour_v1_seen";
 
   function setStatus(kind, text) {
     els.statusDot.className = "status-dot " + kind;
@@ -607,7 +739,6 @@
       list.map(function(d) { return '<option value="' + escapeHtml(d) + '">' + escapeHtml(d) + '</option>'; }).join("");
     if (list.indexOf(current) !== -1) els.districtSelect.value = current;
   }
-
   // ---------- Rendering ----------
 
   function vacBadgeHtml(cp) {
@@ -800,9 +931,199 @@
       setStatus("err", "Retry pending");
     });
   }
-
   // ---------- Events ----------
 
+  // ---------- More menu ----------
+
+  function positionMoreMenu() {
+    var r = els.moreBtn.getBoundingClientRect();
+    els.moreMenu.style.top = (r.bottom + 6) + "px";
+    els.moreMenu.style.right = (window.innerWidth - r.right) + "px";
+  }
+
+  function openMoreMenu() {
+    positionMoreMenu();
+    els.moreMenu.classList.add("open");
+  }
+
+  function closeMoreMenu() {
+    els.moreMenu.classList.remove("open");
+  }
+
+  els.moreBtn.addEventListener("click", function(e) {
+    e.stopPropagation();
+    if (els.moreMenu.classList.contains("open")) { closeMoreMenu(); } else { openMoreMenu(); }
+  });
+
+  document.addEventListener("click", function(e) {
+    if (!els.moreMenu.classList.contains("open")) return;
+    if (e.target === els.moreBtn || els.moreBtn.contains(e.target)) return;
+    if (els.moreMenu.contains(e.target)) return;
+    closeMoreMenu();
+  });
+
+  window.addEventListener("resize", function() {
+    if (els.moreMenu.classList.contains("open")) positionMoreMenu();
+  });
+
+  // ---------- Help / FAQ modal ----------
+
+  function openHelp() {
+    closeMoreMenu();
+    els.helpOverlay.classList.add("open");
+  }
+
+  function closeHelp() {
+    els.helpOverlay.classList.remove("open");
+  }
+
+  els.menuHelpBtn.addEventListener("click", openHelp);
+  els.helpCloseBtn.addEventListener("click", closeHelp);
+  els.helpCloseBtn2.addEventListener("click", closeHelp);
+  els.helpOverlay.addEventListener("click", function(e) {
+    if (e.target === els.helpOverlay) closeHelp();
+  });
+  els.helpTourBtn.addEventListener("click", function() {
+    closeHelp();
+    startTour();
+  });
+
+  // ---------- Rate this app ----------
+
+  els.menuRateBtn.addEventListener("click", function() {
+    closeMoreMenu();
+    window.location.href = PLAY_STORE_URL;
+  });
+
+  // ---------- Onboarding tour ----------
+
+  var TOUR_STEPS = [
+    {
+      target: null,
+      title: "Welcome to HK Smart Parking Finder 👋",
+      body: "A quick 20-second tour of the basics — live vacancy, filters and search. You can skip this any time."
+    },
+    {
+      target: "#vtabs",
+      title: "Pick your vehicle type",
+      body: "Switch between Private car, Motorcycle, LGV and HGV — results, filters and sorting all update for that vehicle type."
+    },
+    {
+      target: ".search-box",
+      title: "Search by name, street or district",
+      body: "Start typing to narrow the list instantly — no need to press enter."
+    },
+    {
+      target: ".filter-row",
+      title: "Filter and sort",
+      body: "Narrow to one district, or sort by nearest, most spaces, or name."
+    },
+    {
+      target: "#refreshBtn",
+      title: "Refresh any time",
+      body: "Vacancy auto-refreshes every 60 seconds — tap here whenever you want the very latest numbers right now."
+    },
+    {
+      target: "#moreBtn",
+      title: "Help, tour and rating live here",
+      body: "Come back to this menu any time to replay this tour, open the Help &amp; FAQ, or rate the app. Enjoy — happy parking!",
+      final: true
+    }
+  ];
+
+  var tourIdx = 0;
+  var tourEls = null;
+
+  function buildTourDom() {
+    if (tourEls) return;
+    var spot = document.createElement("div");
+    spot.className = "tour-spot";
+    spot.id = "tourSpot";
+
+    var card = document.createElement("div");
+    card.className = "tour-card";
+    card.id = "tourCard";
+    card.innerHTML =
+      '<div class="tour-step-count" id="tourStepCount"></div>' +
+      '<div class="tour-title" id="tourTitle"></div>' +
+      '<div class="tour-body" id="tourBody"></div>' +
+      '<div class="tour-actions">' +
+        '<button class="tour-btn" id="tourSkipBtn" type="button">Skip</button>' +
+        '<div class="tour-nav">' +
+          '<button class="tour-btn" id="tourBackBtn" type="button">Back</button>' +
+          '<button class="tour-btn tour-next" id="tourNextBtn" type="button">Next</button>' +
+        '</div>' +
+      '</div>';
+
+    document.body.appendChild(spot);
+    document.body.appendChild(card);
+
+    tourEls = {
+      spot: spot,
+      card: card,
+      stepCount: card.querySelector("#tourStepCount"),
+      title: card.querySelector("#tourTitle"),
+      body: card.querySelector("#tourBody"),
+      skipBtn: card.querySelector("#tourSkipBtn"),
+      backBtn: card.querySelector("#tourBackBtn"),
+      nextBtn: card.querySelector("#tourNextBtn")
+    };
+
+    tourEls.skipBtn.addEventListener("click", endTour);
+    tourEls.backBtn.addEventListener("click", function() { showTourStep(tourIdx - 1); });
+    tourEls.nextBtn.addEventListener("click", function() {
+      if (tourIdx >= TOUR_STEPS.length - 1) { endTour(); } else { showTourStep(tourIdx + 1); }
+    });
+  }
+
+  function showTourStep(i) {
+    if (i < 0 || i >= TOUR_STEPS.length) return;
+    tourIdx = i;
+    var step = TOUR_STEPS[i];
+    var target = step.target ? document.querySelector(step.target) : null;
+
+    if (target) {
+      var r = target.getBoundingClientRect();
+      var pad = 8;
+      tourEls.spot.style.left = (r.left - pad) + "px";
+      tourEls.spot.style.top = (r.top - pad) + "px";
+      tourEls.spot.style.width = (r.width + pad * 2) + "px";
+      tourEls.spot.style.height = (r.height + pad * 2) + "px";
+      tourEls.spot.style.borderRadius = "14px";
+    } else {
+      var cx = window.innerWidth / 2;
+      var cy = window.innerHeight / 2;
+      tourEls.spot.style.left = cx + "px";
+      tourEls.spot.style.top = cy + "px";
+      tourEls.spot.style.width = "0px";
+      tourEls.spot.style.height = "0px";
+      tourEls.spot.style.borderRadius = "50%";
+    }
+
+    tourEls.stepCount.textContent = "Step " + (i + 1) + " of " + TOUR_STEPS.length;
+    tourEls.title.textContent = step.title;
+    tourEls.body.innerHTML = step.body;
+    tourEls.backBtn.style.visibility = (i === 0) ? "hidden" : "visible";
+    tourEls.nextBtn.textContent = step.final ? "Got it" : "Next";
+  }
+
+  function startTour() {
+    closeMoreMenu();
+    buildTourDom();
+    tourEls.spot.style.display = "block";
+    tourEls.card.style.display = "block";
+    showTourStep(0);
+  }
+
+  function endTour() {
+    try { localStorage.setItem(TOUR_KEY, "1"); } catch (e) {}
+    if (tourEls) {
+      tourEls.spot.style.display = "none";
+      tourEls.card.style.display = "none";
+    }
+  }
+
+  els.menuTourBtn.addEventListener("click", startTour);
   els.searchInput.addEventListener("input", function(e) {
     state.search = e.target.value;
     render();
@@ -853,6 +1174,12 @@
   requestLocation();
   loadAll(false);
   setInterval(refreshVacancyOnly, VACANCY_REFRESH_MS);
+
+  try {
+    if (!localStorage.getItem(TOUR_KEY)) {
+      setTimeout(startTour, 700);
+    }
+  } catch (e) {}
 
 })();
 </script>
