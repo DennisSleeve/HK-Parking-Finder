@@ -427,7 +427,7 @@
       <p id="aboutP1">This finder calls two official Hong Kong government feeds directly from your browser, refreshed automatically every 60 seconds — nothing passes through any server of mine. For <b>Private car</b> and <b>Motorcycle</b>, it combines the Transport Department's <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">territory-wide vacancy feed</a> (all 18 districts) with the <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">Parking Vacancy Data (One-Stop Version)</a> API. For <b>LGV/HGV</b>, only the one-stop API has a vehicle type actually stated, so those two views are limited to the car parks it covers — which, in practice, means Kwun Tong, Kowloon Bay, San Po Kong and Kai Tak (the Energizing Kowloon East smart-parking zone). That gap is itself a data point: official real-time reporting for goods vehicles barely exists outside one pilot district, even though HK logged 2M+ illegal-parking tickets last year and the shortage is most acute for goods vehicles — which is exactly the underserved segment the original NYC analysis pointed toward.</p>
       <p id="aboutP2">Vacancy figures come from car park operators and are not available for every venue — where an operator reports a status only (not an exact count), or reports nothing at all, this is shown as "Status only" or "No live data" rather than a number. Distances are straight-line, calculated from the location your browser reports.</p>
       <p id="aboutP3">Built as a follow-on to an MBA data analytics project on NYC curb-parking enforcement — testing whether the same "smart parking" idea holds up in a market that, unlike NYC, already has strong public real-time parking data. Short answer: general car-park search is well served here already; the sharper open gap is commercial/goods-vehicle loading, which is why LGV/HGV views are included above.</p>
-      <p id="aboutP4">Car park names, addresses and district labels come directly from the government data feeds, which only publish them in English — so those stay in English even when the interface is set to Chinese.</p>
+      <p id="aboutP4">Car park names and addresses show in Chinese only where the source data has it — mainly Private car / Motorcycle listings, which come from the Transport Department's territory-wide feed. Listings from the other government feed, and all Light/Heavy goods vehicle listings, only have English names and addresses, since that data source has no Chinese version. District labels are translated throughout, regardless of source.</p>
     </div>
   </details>
 </footer>
@@ -465,7 +465,7 @@
       </div>
       <div class="faq-item">
         <div class="faq-q" id="faqQ7">Can I use this in Chinese?</div>
-        <div class="faq-a" id="faqA7">Yes — open the ⋮ menu and tap 中文 / English to switch. Car park names, addresses and districts stay in English either way, since that's how the government feeds publish them.</div>
+        <div class="faq-a" id="faqA7">Yes — open the ⋮ menu and tap 中文 / English to switch. Most Private car / Motorcycle listings show their official Chinese name and address, since that comes from the Transport Department's feed. Listings from the other government source, and all Light/Heavy goods vehicle listings, stay in English only, as that feed has no Chinese data. District names are translated everywhere.</div>
       </div>
     </div>
     <div class="modal-footer-row">
@@ -610,7 +610,7 @@
       aboutP1: 'This finder calls two official Hong Kong government feeds directly from your browser, refreshed automatically every 60 seconds — nothing passes through any server of mine. For <b>Private car</b> and <b>Motorcycle</b>, it combines the Transport Department\'s <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">territory-wide vacancy feed</a> (all 18 districts) with the <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">Parking Vacancy Data (One-Stop Version)</a> API. For <b>LGV/HGV</b>, only the one-stop API has a vehicle type actually stated, so those two views are limited to the car parks it covers — which, in practice, means Kwun Tong, Kowloon Bay, San Po Kong and Kai Tak (the Energizing Kowloon East smart-parking zone). That gap is itself a data point: official real-time reporting for goods vehicles barely exists outside one pilot district, even though HK logged 2M+ illegal-parking tickets last year and the shortage is most acute for goods vehicles — which is exactly the underserved segment the original NYC analysis pointed toward.',
       aboutP2: 'Vacancy figures come from car park operators and are not available for every venue — where an operator reports a status only (not an exact count), or reports nothing at all, this is shown as "Status only" or "No live data" rather than a number. Distances are straight-line, calculated from the location your browser reports.',
       aboutP3: 'Built as a follow-on to an MBA data analytics project on NYC curb-parking enforcement — testing whether the same "smart parking" idea holds up in a market that, unlike NYC, already has strong public real-time parking data. Short answer: general car-park search is well served here already; the sharper open gap is commercial/goods-vehicle loading, which is why LGV/HGV views are included above.',
-      aboutP4: "Car park names, addresses and district labels come directly from the government data feeds, which only publish them in English — so those stay in English even when the interface is set to Chinese.",
+      aboutP4: "Car park names and addresses show in Chinese only where the source data has it — mainly Private car / Motorcycle listings, which come from the Transport Department's territory-wide feed. Listings from the other government feed, and all Light/Heavy goods vehicle listings, only have English names and addresses, since that data source has no Chinese version. District labels are translated throughout, regardless of source.",
       helpTitle: "Help & FAQ",
       faqQ1: "How fresh is the vacancy data?",
       faqA1: "It auto-refreshes every 60 seconds, straight from the Transport Department's live feeds — no caching on my side. Tap the ↻ refresh icon next to the search box any time for an instant update.",
@@ -625,7 +625,7 @@
       faqQ6: "Can I install this as an app?",
       faqA6: 'Yes — scroll down on the main screen to "Add this to your Home Screen" for quick steps on iPhone/iPad and Android.',
       faqQ7: "Can I use this in Chinese?",
-      faqA7: "Yes — open the ⋮ menu and tap 中文 / English to switch. Car park names, addresses and districts stay in English either way, since that's how the government feeds publish them.",
+      faqA7: "Yes — open the ⋮ menu and tap 中文 / English to switch. Most Private car / Motorcycle listings show their official Chinese name and address, since that comes from the Transport Department's feed. Listings from the other government source, and all Light/Heavy goods vehicle listings, stay in English only, as that feed has no Chinese data. District names are translated everywhere.",
       gotIt: "Got it",
       closeLabel: "Close",
       tourWelcomeTitle: "Welcome to HK Smart Parking Finder 👋",
@@ -720,7 +720,7 @@
       aboutP1: '此搜尋器會直接從你的瀏覽器呼叫兩個香港政府官方資料來源，每 60 秒自動更新一次 — 全部資料都不會經過我的伺服器。就 <b>私家車</b> 及 <b>電單車</b> 而言，本工具結合了運輸署的 <a href="https://data.gov.hk/en-data/dataset/hk-td-tis_5-real-time-parking-vacancy-data" target="_blank" rel="noopener">全港車位空置資料</a>（涵蓋全港 18 區）以及 <a href="https://data.gov.hk/en-data/dataset/hk-dpo-datagovhk1-carpark-info-vacancy" target="_blank" rel="noopener">停車場車位資料（一站式版本）</a> API。至於 <b>輕型貨車／重型貨車</b>，只有一站式 API 有明確列出車輛類型，因此這兩個分類只涵蓋該 API 所包括的停車場 — 實際上主要是觀塘、九龍灣、新蒲崗及啟德（起動九龍東智慧泊車試點區）。這個數據缺口本身就說明了問題：香港去年錄得逾 200 萬張違例泊車告票，但貨車泊位的即時資訊幾乎只在這一個試點地區才有提供，而貨車正正是最缺乏車位的一群。',
       aboutP2: '車位數字由各停車場營運者提供，並非每個地點都有 — 若營運者只提供開放／爆滿等狀態（沒有確實數字），或完全沒有提供即時資料，本工具會如實顯示為「僅顯示狀態」或「沒有即時資料」，而不會自行估算。距離一律以直線距離計算，根據你的瀏覽器所提供的位置計算得出。',
       aboutP3: '此工具是一個 MBA 數據分析課程項目（分析紐約路邊泊車執法情況）的延伸作品 — 旨在測試同一套「智慧泊車」概念，在已經擁有良好公開即時車位數據的香港（有別於紐約）是否仍然適用。簡單結論：一般私家車泊車搜尋在香港已有不錯的服務；真正仍然存在的缺口，在於商用／貨車裝卸車位，這正是本工具加入輕型貨車／重型貨車分類的原因。',
-      aboutP4: "停車場名稱、地址及地區名稱均直接來自政府資料來源，而該等來源只提供英文版本 — 因此即使介面設定為中文，這部分資料仍會以英文顯示。",
+      aboutP4: "停車場名稱及地址僅在資料來源有提供時才會顯示中文 — 主要是來自運輸署全港資料源的私家車／電單車車位。來自另一個政府資料源的車位，以及所有輕型／重型貨車車位，則只有英文名稱及地址，因為該資料源並無中文版本。地區名稱則不論資料來源，一律會翻譯成中文。",
       helpTitle: "說明與常見問題",
       faqQ1: "車位資料有多新？",
       faqA1: "資料每 60 秒自動更新一次，直接來自運輸署的即時資料來源 — 不經過任何快取。你亦可隨時輕觸搜尋框旁的 ↻ 重新整理圖示，即時更新資料。",
@@ -735,7 +735,7 @@
       faqQ6: "可以把它安裝成應用程式嗎？",
       faqA6: "可以 — 請捲動至主畫面下方的「加入主畫面」部分，查看 iPhone/iPad 及 Android 的簡易步驟。",
       faqQ7: "可以使用中文版本嗎？",
-      faqA7: "可以 — 開啟 ⋮ 選單，輕觸「中文 / English」即可切換語言。停車場名稱、地址及地區名稱不論語言設定為何，均會維持英文顯示，因為政府資料來源只提供英文版本。",
+      faqA7: "可以 — 開啟 ⋮ 選單，輕觸「中文 / English」即可切換語言。大部分私家車／電單車車位會顯示官方中文名稱及地址，因為這些資料來自運輸署的資料源。來自另一個政府資料源的車位，以及所有輕型／重型貨車車位，則只會顯示英文，因為該資料源並無中文版本。地區名稱則一律會翻譯成中文。",
       gotIt: "知道了",
       closeLabel: "關閉",
       tourWelcomeTitle: "歡迎使用香港智能泊車位搜尋器 👋",
@@ -800,6 +800,18 @@
   function districtLabel(d) {
     if (state.lang === "zh" && DISTRICT_ZH[d]) return DISTRICT_ZH[d];
     return d;
+  }
+
+  // Native Chinese name/address is only available for car parks sourced from the TD
+  // territory-wide feed (Private car / Motorcycle only) — other listings fall back to English.
+  function nameLabel(cp) {
+    if (state.lang === "zh" && cp.nameZh) return cp.nameZh;
+    return cp.name;
+  }
+
+  function addressLabel(cp) {
+    if (state.lang === "zh" && cp.addressZh) return cp.addressZh;
+    return cp.address;
   }
 
   function applyStaticI18n() {
@@ -953,7 +965,9 @@
         if (!raw || raw.park_id == null) return;
         map[raw.park_id] = {
           name: raw.name_en,
+          nameZh: raw.name_tc || null,
           displayAddress: raw.displayAddress_en,
+          displayAddressZh: raw.displayAddress_tc || null,
           district: raw.district_en,
           latitude: raw.latitude,
           longitude: raw.longitude,
@@ -1053,7 +1067,9 @@
           id: sourceTag + "_" + id,
           source: sourceTag,
           name: info.name || t("unnamedCarPark"),
+          nameZh: info.nameZh || null,
           address: info.displayAddress || (info.address && info.address.streetName) || "",
+          addressZh: info.displayAddressZh || null,
           district: districtRaw.replace(/\s*District$/i, "").trim(),
           nature: info.nature || (sourceTag === "td" ? "TD car park" : ""),
           lat: lat, lng: lng, dist: dist,
@@ -1121,8 +1137,8 @@
       '<div class="card">' +
         '<div class="card-top">' +
           '<div>' +
-            '<div class="card-name">' + escapeHtml(cp.name) + '</div>' +
-            '<div class="card-meta">' + escapeHtml(cp.address) + (cp.district ? ' · ' + escapeHtml(districtLabel(cp.district)) : '') + '</div>' +
+            '<div class="card-name">' + escapeHtml(nameLabel(cp)) + '</div>' +
+            '<div class="card-meta">' + escapeHtml(addressLabel(cp)) + (cp.district ? ' · ' + escapeHtml(districtLabel(cp.district)) : '') + '</div>' +
           '</div>' +
           distHtml +
         '</div>' +
@@ -1142,6 +1158,8 @@
       list = list.filter(function(cp) {
         return (cp.name && cp.name.toLowerCase().indexOf(q) !== -1) ||
                (cp.address && cp.address.toLowerCase().indexOf(q) !== -1) ||
+               (cp.nameZh && cp.nameZh.indexOf(state.search.trim()) !== -1) ||
+               (cp.addressZh && cp.addressZh.indexOf(state.search.trim()) !== -1) ||
                (cp.district && cp.district.toLowerCase().indexOf(q) !== -1) ||
                (cp.district && districtLabel(cp.district).indexOf(state.search.trim()) !== -1);
       });
